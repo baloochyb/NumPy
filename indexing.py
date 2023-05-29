@@ -58,3 +58,29 @@ b = a > 4 # `b` is a boolean with `a`'s shape
 print(b)
 print(a[b])  # 1d array with the selected elements
 a[b] = 0  # All elements of `a` higher than 4 become 0
+print('#################################################')
+
+a = np.arange(12).reshape(3, 4)
+b1 = np.array([False, True, True])         # first dim selection
+b2 = np.array([True, False, True, False])  # second dim selection
+print(a[b1, :]) # selecting rows | a[b1] is the same thing
+print(a[:, b2]) # selecting columns
+print(a[b1, b2])
+print('#################################################')
+
+a = np.array([2, 3, 4, 5])
+b = np.array([8, 5, 4])
+c = np.array([5, 4, 6, 8, 3])
+ax, bx, cx = np.ix_(a, b, c)
+result = ax + bx * cx
+print(result[3, 2, 4])
+print(a[3] + b[2] * c[4])
+
+def ufunc_reduce(ufct, *vectors):
+    vs = np.ix_(*vectors)
+    r = ufct.identity
+    for v in vs:
+        r = ufct(r, v)
+    return r
+
+print(ufunc_reduce(np.add, a, b, c))
