@@ -18,4 +18,5 @@ def mandelbrot(h, w, maxit=20, r=2):
     return divtime
 plt.clf()
 plt.imshow(mandelbrot(400, 400))
+plt.show()
 print('done!')
